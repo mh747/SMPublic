@@ -48,6 +48,30 @@ class UsersMapper extends SpotmeMapper
         return $results;
     }
 
+    public function getUserByCarId($car_id) {
+        //first, get user id 
+        $sql = "select USER_ID from USER_CAR where CAR_ID=" . (int)$car_id;  
+        $stmt = $this->db->prepare($sql);
+        $response = $stmt->execute();
+        if($response) {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        }
+        return false;
+    } 
+
+    public function getUserBySpotId($car_id) {
+        $sql = "select USER_ID from USER_SPOT where SPOT_ID=" . (int)$spot_id;
+        $stmt = $this->db->prepare($sql);
+        $response = $stmt->execute();
+        if($response) {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        }
+        return false;
+    }
+        
+
     public function getUserByUsername($username) {
         //Use PDO placeholder array since taking in a string
         $sql = "select USER_ID,USERNAME,FIRST_NAME,LAST_NAME,EMAIL "
